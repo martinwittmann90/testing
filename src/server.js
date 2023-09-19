@@ -71,7 +71,7 @@ app.use(
     store: MongoStore.create({
       mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@projectmartinwittmann.l8a7l5b.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
       mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
-      ttl: 60 * 10,
+      ttl: 60 * 30,
     }),
     secret: process.env.SESSION_SECRET,
     resave: true,
