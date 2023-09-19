@@ -1,4 +1,4 @@
-/* import app from '../src/server.js';
+import app from '../src/server.js';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
@@ -6,7 +6,7 @@ chai.use(chaiHttp);
 const expect = chai.expect;
 
 describe('Products API', () => {
-    before(function () {
+  before(function () {
     this.timeout(500000000);
   });
 
@@ -24,4 +24,3 @@ describe('Products API', () => {
       });
   });
 });
- */
