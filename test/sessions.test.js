@@ -1,4 +1,4 @@
-/* import { expect } from 'chai';
+import { expect } from 'chai';
 import app from '../src/server.js';
 import request from 'supertest';
 import UserModel from '../src/DAO/models/user.model.js';
@@ -45,4 +45,3 @@ describe('Login', () => {
     await UserModel.deleteMany({ email: 'juan@example.com' });
   });
 });
- */
