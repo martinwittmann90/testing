@@ -1,0 +1,176 @@
+openapi: 3.0.0
+info:
+  title: 'API de Carritos de Nische Store'
+  version: '1.0.0'
+  description: 'Documentación de la API de Carritos para Nische Store'
+servers:
+  - url: 'http://localhost:8000'
+paths:
+  /api/carts:
+    post:
+      summary: Crear un nuevo carrito
+      tags:
+        - Carrito
+      responses:
+        '201':
+          description: Carrito creado exitosamente
+    get:
+      summary: Obtener todos los carritos
+      tags:
+        - Carrito
+      responses:
+        '200':
+          description: Lista de carritos
+  /api/carts/{cid}:
+    get:
+      summary: Obtener un carrito por ID
+      tags:
+        - Carrito
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito a recuperar
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito recuperado exitosamente
+        '404':
+          description: Carrito no encontrado
+    put:
+      summary: Actualizar un carrito
+      tags:
+        - Carrito
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito a actualizar
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                products:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      product:
+                        type: string
+                        description: ID del producto
+                      quantity:
+                        type: integer
+                        description: Cantidad del producto
+      responses:
+        '200':
+          description: Carrito actualizado exitosamente
+    delete:
+      summary: Eliminar un carrito por ID
+      tags:
+        - Carrito
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito a eliminar
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito eliminado exitosamente
+        '404':
+          description: Carrito no encontrado
+  /api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agregar un producto a un carrito
+      tags:
+        - Carrito
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito al que se agregará el producto
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto a agregar al carrito
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto agregado al carrito exitosamente
+        '403':
+          description: Permiso denegado
+    delete:
+      summary: Eliminar un producto de un carrito
+      tags:
+        - Carrito
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito del que se eliminará el producto
+          schema:
+            type: string
+        - name: pid
+          in: path
+          required: true
+          description: ID del producto a eliminar del carrito
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Producto eliminado del carrito exitosamente
+        '404':
+          description: Producto o carrito no encontrado
+  /api/carts/empty/{cid}:
+    delete:
+      summary: Vaciar un carrito
+      tags:
+        - Carrito
+      parameters:
+        - name: cid
+          in: path
+          required: true
+          description: ID del carrito a vaciar
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Carrito vaciado exitosamente
+        '404':
+          description: Carrito no encontrado
+components:
+  schemas:
+    CartProduct:
+      type: object
+      properties:
+        product:
+          type: string
+          description: ID del producto
+        quantity:
+          type: integer
+          description: Cantidad del producto
+      required:
+        - product
+        - quantity
+    Cart:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID del carrito
+        products:
+          type: array
+          description: Lista de productos en el carrito
+          items:
+            $ref: '#/components/schemas/CartProduct'
+      required:
+        - products
