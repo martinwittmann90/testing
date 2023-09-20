@@ -44,9 +44,7 @@ describe('Carrito de compras', () => {
         email: usuarioDePrueba.email,
         password: usuarioDePrueba.password,
       });
-
       expect(loginResponse).to.have.status(200);
-
       done(usuarioDePrueba);
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
@@ -54,7 +52,7 @@ describe('Carrito de compras', () => {
     }
   }
   before(function (done) {
-    this.timeout(300000);
+    this.timeout(3000);
     createProduct(() => {
       const carritoDePrueba = new CartModel({
         products: [
